@@ -124,7 +124,7 @@ class MySQLTool:
             col_list_double.append(col)
 
         sql_update = """
-            update %s set """ + ','.join(['%s = %%(%s)s'] * len(col_list))
+            update %s set """ + ','.join(['%s = %%(%s)s'] * len(col_list)) + ' ' + conditions
         sql_update = sql_update % tuple([tbl_name] + col_list_double)
 
         df_dict_list = df.to_dict(orient='records')
