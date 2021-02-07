@@ -101,10 +101,40 @@ class MySQLTool:
             self.db.commit()
         cursor.close()
 
-    def
+    def update(
+            self,
+            tbl_name,
+            df,
+            col_list=None,
+            conditions=None
+    ):
 
+        row_num = df.shape[0]
+        print('row num to update: ' + str(row_num))
+        batch_num = ceil(row_num / self.batch_size)
 
+        cursor = self.db.cursor()
+        conditions = """""" if not conditions else conditions
 
+        if not col_list:
+            col_list = list(df.columns)
+        col_list_double = []
+        for col in col_list:
+            col_list_double.append(col)
+            col_list_double.append(col)
+
+        sql_update = """
+            update %s set """ + ','.join(['%s = %%(%s)s'] * len(col_list))
+        sql_update = sql_update % tuple([tbl_name] + col_list_double)
+
+        df_dict_list = df.to_dict(orient='records')
+        for b_i in range(batch_num):
+            cursor.executemany(
+                sql_update,
+                df_dict_list[b_i * self.batch_size: (b_i + 1) * self.batch_size]
+            )
+            self.db.commit()
+        cursor.close()
 
 
 if __name__ == '__main__':
@@ -117,21 +147,34 @@ if __name__ == '__main__':
         where arrival > '2020-01-01'
         """,
     )
-    futu_sql.create_table(
-        sql="""
-        CREATE TABLE `test_table_4` (
-          `orderdate` date DEFAULT NULL,
-          `arrival` date DEFAULT NULL,
-          `date_diff` int(11) DEFAULT NULL,
-          `ordernum` int(11) DEFAULT NULL
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='test data 2'
-        """
-    )
-    futu_sql.insert(
+    # futu_sql.create_table(
+    #     sql="""
+    #     CREATE TABLE `test_table_4` (
+    #       `orderdate` date DEFAULT NULL,
+    #       `arrival` date DEFAULT NULL,
+    #       `date_diff` int(11) DEFAULT NULL,
+    #       `ordernum` int(11) DEFAULT NULL
+    #     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='test data 2'
+    #     """
+    # )
+    # futu_sql.insert(
+    #     tbl_name='test_table_4',
+    #     df=data.iloc[:5333, :],
+    #     col_list=['orderdate', 'arrival', 'date_diff',
+    #               # 'ordernum'
+    #               ]
+    # )
+    futu_sql.update(
         tbl_name='test_table_4',
-        df=data.iloc[:5333, :],
-        col_list=['orderdate', 'arrival', 'date_diff',
-                  # 'ordernum'
-                  ]
+        df=data.iloc[[4], :],
+        col_list=[
+            'orderdate',
+            # 'arrival',
+            # 'date_diff',
+            'ordernum',
+        ],
+        conditions="""where arrival >= '2020-02-01'"""
     )
+
+
 

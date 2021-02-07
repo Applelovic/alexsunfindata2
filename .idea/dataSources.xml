@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://rm-uf6p57w6z8imq8h0pgo.mysql.rds.aliyuncs.com:3306/testdb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="asfd" uuid="6927c631-a26a-46e7-b10d-9e5a422b3e34">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://rm-uf6p57w6z8imq8h0pgo.mysql.rds.aliyuncs.com:3306/testdb</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
