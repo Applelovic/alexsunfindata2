@@ -89,7 +89,7 @@ class MySQLTool:
         if not col_list:
             col_list = list(df.columns)
         sql_insert = """
-        insert into %s (""" + ','.join(['%s'] * len(col_list)) + """) values (""" + ','.join(['%%(%s)s'] * len(col_list)) + ')'
+        replace into %s (""" + ','.join(['%s'] * len(col_list)) + """) values (""" + ','.join(['%%(%s)s'] * len(col_list)) + ')'
         sql_insert = sql_insert % tuple([tbl_name] + col_list + col_list)
 
         df_dict_list = df.to_dict(orient='records')

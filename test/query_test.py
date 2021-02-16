@@ -3,6 +3,7 @@ from mysql_conn_test import *
 import datetime
 import time
 import random
+import numpy as np
 
 
 class StockInfoGetter:
@@ -44,7 +45,7 @@ class StockInfoGetter:
                 quote_ctx.close()
                 data['create_date'] = datetime.date.today()
                 data['last_change_datetime'] = datetime.datetime.now()
-                data.replace({'': None, 'N/A': None}, inplace=True)
+                data.replace({'': None, 'N/A': None, np.nan: None}, inplace=True)
                 self.__have_data = 1
                 self.__data = data
                 break
