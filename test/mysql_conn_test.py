@@ -147,16 +147,16 @@ if __name__ == '__main__':
         where arrival > '2020-01-01'
         """,
     )
-    # futu_sql.create_table(
-    #     sql="""
-    #     CREATE TABLE `test_table_4` (
-    #       `orderdate` date DEFAULT NULL,
-    #       `arrival` date DEFAULT NULL,
-    #       `date_diff` int(11) DEFAULT NULL,
-    #       `ordernum` int(11) DEFAULT NULL
-    #     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='test data 2'
-    #     """
-    # )
+    futu_sql.create_table(
+        sql="""
+        CREATE TABLE `test_table_4` (
+          `orderdate` date DEFAULT NULL,
+          `arrival` date DEFAULT NULL,
+          `date_diff` int(11) DEFAULT NULL,
+          `ordernum` int(11) DEFAULT NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='test data 2'
+        """
+    )
     # futu_sql.insert(
     #     tbl_name='test_table_4',
     #     df=data.iloc[:5333, :],
@@ -164,17 +164,17 @@ if __name__ == '__main__':
     #               # 'ordernum'
     #               ]
     # )
-    futu_sql.update(
-        tbl_name='test_table_4',
-        df=data.iloc[[4], :],
-        col_list=[
-            'orderdate',
-            # 'arrival',
-            # 'date_diff',
-            'ordernum',
-        ],
-        conditions="""where arrival >= '2020-02-01'"""
-    )
-
-
-
+    # futu_sql.update(
+    #     tbl_name='test_table_4',
+    #     df=data.iloc[[4], :],
+    #     col_list=[
+    #         'orderdate',
+    #         # 'arrival',
+    #         # 'date_diff',
+    #         'ordernum',
+    #     ],
+    #     conditions="""where arrival >= '2020-02-01'"""
+    # )
+    #
+    #
+    #
